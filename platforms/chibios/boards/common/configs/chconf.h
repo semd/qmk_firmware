@@ -751,6 +751,12 @@
 /* Port-specific settings (override port settings defaulted in chcore.h).    */
 /*===========================================================================*/
 
+/* To compile the ChibiOS syscall stubs with picolibc
+ * the _reent struct has to be defined. */
+#if !defined(_FROM_ASM_) && defined(USE_PICOLIBC)
+struct _reent;
+#endif
+
 #endif  /* CHCONF_H */
 
 /** @} */
