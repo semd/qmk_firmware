@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <string.h>
 #include "host.h"
 #include "report.h"
 #include "debug.h"
@@ -48,6 +49,7 @@ static int8_t cb_count = 0;
 #endif
 
 report_keyboard_t              keyboard_report;
+report_keyboard_t              last_keyboard_report;
 bool                           keyboard_report_has_deferred_keycodes;
 volatile unregister_keycodes_t unregister_keycodes;
 
@@ -281,7 +283,10 @@ void send_keyboard_report(void) {
  */
 void send_keyboard_report_immediate(void) {
     if (keyboard_report_has_deferred_keycodes) {
-        host_keyboard_send(&keyboard_report);
+        if (memcmp(&last_keyboard_report, &keyboard_report, sizeof(report_keyboard_t)) != 0) {
+            memcpy(&last_keyboard_report, &keyboard_report, sizeof(report_keyboard_t));
+            host_keyboard_send(&keyboard_report);
+        }
         keyboard_report_has_deferred_keycodes = false;
     }
 }
