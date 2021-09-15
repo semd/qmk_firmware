@@ -106,9 +106,8 @@ void layer_state_set(layer_state_t state) {
     dprintln();
 #    ifdef STRICT_LAYER_RELEASE
     clear_keyboard_but_mods();  // To avoid stuck keys
-#    else
-    clear_keyboard_but_mods_and_keys();  // Don't reset held keys
 #    endif
+ //   clear_keyboard_but_mods_and_keys();  // Don't reset held keys
 }
 
 /** \brief Layer clear
