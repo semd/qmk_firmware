@@ -1,5 +1,5 @@
 # Choose to use RISC-V or ARM MCU
-RISC-V = yes
+RISC-V = no
 
 ifeq ($(strip $(RISC-V)), yes)
     MCU                =   GD32VF103
@@ -17,7 +17,7 @@ else
 endif
 
 # YAEMK source files
-SRC     = led_config.c custom_color.c
+SRC     = led_config.c
 
 # Debugging
 #EXTRAFLAGS     += -gdwarf-4 -Wextra -Wconversion
